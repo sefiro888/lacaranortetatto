@@ -399,11 +399,7 @@ section{position:relative}
   .main-nav{display:none}
   .nav-toggle{display:block}
   .header-cta .btn{display:none}
-  .mobile-nav{display:block;position:fixed;inset:78px 0 0 0;background:rgba(11,11,12,.98);padding:26px 24px 100px;overflow:auto;opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .35s,transform .45s var(--ease),visibility 0s .45s;z-index:99}
-  .mobile-nav.open{opacity:1;visibility:visible;transform:none;transition-delay:0s}
-  .mobile-nav a{display:block;padding:16px 0;border-bottom:1px solid var(--line);font:500 1.5rem/1 var(--ff-display);letter-spacing:.06em;text-transform:uppercase}
-  .mobile-nav a.sub{font-size:1.05rem;padding-left:18px;color:#b6b9bf}
-  .mobile-nav .btn{margin-top:22px;width:100%}
+  .mobile-nav{display:block}
 }
 @media (max-width:900px){
   .page-hero-bg img{width:100%;opacity:.5}
@@ -643,3 +639,40 @@ section{position:relative}
 [id]{scroll-margin-top:110px}
 .sec[id]{scroll-margin-top:96px}
 html{scroll-padding-top:100px}
+
+/* ---------- Menú móvil v2: panel a pantalla completa con acordeones ---------- */
+@media (max-width:1100px){
+  .mobile-nav{position:fixed;left:0;right:0;bottom:0;top:var(--menu-top,70px);z-index:99;background:radial-gradient(ellipse at 80% 0%,#2f3338,#17181b 60%,#101113);opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .3s,transform .4s var(--ease),visibility 0s .4s;overflow:hidden}
+  .mobile-nav.open{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+  .mobile-nav::before{content:"";position:absolute;right:-70px;bottom:90px;width:320px;height:320px;background:url("assets/img/logo/logo-512.png") center/contain no-repeat;opacity:.07;pointer-events:none}
+  .mn-scroll{position:relative;height:100%;overflow-y:auto;overscroll-behavior:contain;padding:8px 22px calc(34px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
+  .mn-link,.mn-acc>summary{display:flex;align-items:center;justify-content:space-between;padding:17px 0;border-bottom:1px solid var(--line);font:500 1.55rem/1 var(--ff-display);letter-spacing:.07em;text-transform:uppercase;color:var(--white);list-style:none;cursor:pointer}
+  .mn-acc>summary::-webkit-details-marker{display:none}
+  .mn-acc>summary::after{content:"";width:10px;height:10px;border-right:2px solid var(--copper-light);border-bottom:2px solid var(--copper-light);transform:rotate(45deg);margin:-4px 4px 0 0;transition:transform .3s var(--ease)}
+  .mn-acc[open]>summary::after{transform:rotate(-135deg);margin-top:4px}
+  .mn-acc[open]>summary,.mn-link[aria-current="page"]{color:var(--copper-light)}
+  .mn-sub{display:grid;padding:6px 0 14px 4px;border-bottom:1px solid var(--line)}
+  .mn-sub a{display:block;padding:11px 0 11px 18px;font:500 1rem/1.25 var(--ff-body);letter-spacing:.02em;color:#c9ccd2;border-left:2px solid rgba(191,116,64,.45);margin-left:2px}
+  .mn-sub a+a{margin-top:2px}
+  .mn-sub a[aria-current="page"]{color:var(--copper-light);border-left-color:var(--copper-light)}
+  .mn-sub a:first-child{font-weight:600;color:var(--white)}
+  .mn-foot{display:grid;gap:12px;margin-top:26px}
+  .mn-foot .btn{width:100%;padding:16px}
+  .mn-info{margin:8px 0 0;font-size:.86rem;line-height:1.7;color:#a9adb4;text-align:center}
+  .mn-info .open-status{justify-content:center;margin-bottom:4px}
+  .mn-foot .socials{justify-content:center}
+}
+/* Cabecera y barra superior en móvil */
+@media (max-width:640px){
+  .top-bar-inner{justify-content:space-between;padding:7px 0;gap:10px;flex-wrap:nowrap}
+  .top-bar .open-status{font-size:.74rem;min-width:0}
+  .top-bar .status-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .header-inner{height:66px;gap:12px}
+  .brand{gap:11px;min-width:0}
+  .brand img{width:46px;height:46px}
+  .brand-text{display:flex}
+  .brand-name{font-size:1.18rem;letter-spacing:.1em;white-space:nowrap}
+  .brand-sub{display:block;font-size:.56rem;letter-spacing:.3em;margin-top:5px;white-space:nowrap}
+  .nav-toggle{width:44px;height:44px;flex:none}
+}
+@media (max-width:360px){.brand-name{font-size:1.02rem}.brand-sub{letter-spacing:.22em}}

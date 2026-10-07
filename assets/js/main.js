@@ -28,16 +28,23 @@
   window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
   var toggle = $("#navToggle"), mnav = $("#mobileNav");
+  function setMenuTop() { if (header) document.documentElement.style.setProperty("--menu-top", Math.max(0, Math.round(header.getBoundingClientRect().bottom)) + "px"); }
+  function setMenu(open) {
+    if (!toggle || !mnav) return;
+    if (open) setMenuTop();
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    mnav.classList.toggle("open", open);
+    document.body.style.overflow = open ? "hidden" : "";
+  }
   if (toggle && mnav) {
-    toggle.addEventListener("click", function () {
-      var open = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!open));
-      mnav.classList.toggle("open", !open);
-      document.body.style.overflow = open ? "" : "hidden";
-    });
-    $$("a", mnav).forEach(function (a) { a.addEventListener("click", function () {
-      toggle.setAttribute("aria-expanded", "false"); mnav.classList.remove("open"); document.body.style.overflow = "";
-    }); });
+    toggle.addEventListener("click", function () { setMenu(toggle.getAttribute("aria-expanded") !== "true"); });
+    $$("a", mnav).forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && mnav.classList.contains("open")) { setMenu(false); toggle.focus(); } });
+    window.addEventListener("resize", function () { if (window.innerWidth > 1100) setMenu(false); else if (mnav.classList.contains("open")) setMenuTop(); });
+    // acordeones: uno abierto a la vez
+    var accs = $$(".mn-acc", mnav);
+    accs.forEach(function (d) { d.addEventListener("toggle", function () { if (d.open) accs.forEach(function (o) { if (o !== d) o.open = false; }); }); });
   }
 
   /* ---------- Estado abierto / cerrado (hora de Madrid) ---------- */
@@ -59,6 +66,7 @@
       var next = n.d === 5 && mins >= 1080 ? "el lunes" : n.d === 6 ? "el lunes" : n.d === 0 ? "mañana" : "mañana";
       text = "Cerrado ahora · abrimos " + next + " a las 10:00";
     }
+    if (window.innerWidth < 640) text = text.replace("Cerrado ahora · abrimos mañana a las 10:00", "Cerrado · abre mañana 10:00").replace("Cerrado ahora · abrimos el lunes a las 10:00", "Cerrado · abre el lunes 10:00").replace("Cerrado · abrimos a las 10:00", "Cerrado · abre a las 10:00").replace("Abierto ahora · solo con cita (jul–ago)", "Abierto · solo con cita").replace("Abierto ahora · hasta las 18:00", "Abierto · hasta las 18:00");
     $$("[data-open-status]").forEach(function (el) {
       el.classList.toggle("is-open", open);
       var t = $(".status-text", el); if (t) t.textContent = text;

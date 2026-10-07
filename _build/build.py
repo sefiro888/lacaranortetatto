@@ -237,31 +237,41 @@ def header(current):
             )
         else:
             links.append(f'<a href="{href}"{" aria-current=\"page\"" if current == href else ""}>{label}</a>')
-    mob = ['<a href="index.html"%s>Inicio</a>' % (' aria-current="page"' if current == "index.html" else "")]
+    def mn_link(href, label):
+        cur = ' aria-current="page"' if current == href else ""
+        return f'<a class="mn-link" href="{href}"{cur}>{label}</a>'
+
+    def mn_acc(label, hub, hub_label, items, open_):
+        subs = f'<a href="{hub}">{hub_label}</a>' + "".join(f'<a href="{h}"{" aria-current=\"page\"" if current == h else ""}>{t}</a>' for h, t in items)
+        return f'<details class="mn-acc"{" open" if open_ else ""}><summary>{label}</summary><div class="mn-sub">{subs}</div></details>'
+
+    mob = [mn_link("index.html", "Inicio")]
     for href, label in NAV:
-        mob.append(f'<a href="{href}"{" aria-current=\"page\"" if current == href else ""}>{label}</a>')
-        if href == "equipo.html":
-            for k in ORDER:
-                a = ARTISTS[k]
-                mob.append(f'<a class="sub" href="{a["slug"]}.html">{a["name"]}</a>')
-        if href == "estudio.html":
-            for h, t, d in STUDIO_ITEMS[1:]:
-                mob.append(f'<a class="sub" href="{h}">{t}</a>')
         if href == "tatuajes.html":
-            for s in STYLES:
-                mob.append(f'<a class="sub" href="{s["slug"]}.html">{s["nav"]}</a>')
-        if href == "piercing.html":
-            for s in SERVICES:
-                mob.append(f'<a class="sub" href="{s["slug"]}.html">{s["nav"]}</a>')
+            mob.append(mn_acc("Tatuajes", href, "Todos los estilos", [(s["slug"] + ".html", s["nav"]) for s in STYLES], current == href or current in STYLE_PAGES))
+        elif href == "piercing.html":
+            mob.append(mn_acc("Piercing", href, "Todo el piercing", [(s["slug"] + ".html", s["nav"]) for s in SERVICES], current == href or current in SERVICE_PAGES))
+        elif href == "equipo.html":
+            mob.append(mn_acc("Equipo", href, "Todo el equipo", [(ARTISTS[k]["slug"] + ".html", ARTISTS[k]["name"]) for k in ORDER], current == href or current in TEAM_PAGES))
+        elif href == "estudio.html":
+            mob.append(mn_acc("Estudio", "estudio.html", "El estudio", [(h, t) for h, t, d in STUDIO_ITEMS[1:]], current in STUDIO_PAGES))
+        else:
+            mob.append(mn_link(href, label))
+    mob_foot = f'''<div class="mn-foot">
+      <a class="btn btn-wa" href="{wa("Hola, quería pedir cita en La Cara Norte.")}" target="_blank" rel="noopener">{ICON["wa"]} Escribir por WhatsApp</a>
+      <a class="btn btn-primary" href="contacto.html#cita">Pedir cita</a>
+      <p class="mn-info"><span class="open-status" data-open-status><span class="status-dot" aria-hidden="true"></span><span class="status-text">Horario</span></span><br>{SITE["addr"]}<br>Lunes a viernes · 10:00 – 18:00</p>
+      <div class="socials"><a href="{SITE["ig"]}" target="_blank" rel="noopener" aria-label="Instagram">{ICON["ig"]}</a><a href="{SITE["fb"]}" target="_blank" rel="noopener" aria-label="Facebook">{ICON["fb"]}</a><a href="{wa()}" target="_blank" rel="noopener" aria-label="WhatsApp">{ICON["wa"]}</a><a href="mailto:{SITE["mail"]}" aria-label="Correo">{ICON["mail"]}</a></div>
+    </div>'''
     return f'''
 <div class="top-bar"><div class="top-bar-inner">
   <span class="open-status" data-open-status><span class="status-dot" aria-hidden="true"></span><span class="status-text">Horario</span></span>
   <span class="top-sep hide-sm">·</span>
   <a class="hide-sm" href="{SITE["maps"]}" target="_blank" rel="noopener">{SITE["addr"]}</a>
   <span class="top-sep hide-sm">·</span>
-  <a href="{wa()}" target="_blank" rel="noopener">WhatsApp {SITE["wa_pretty"]}</a>
-  <span class="top-sep">·</span>
-  <span>★ 5,0 · 120 reseñas en Google</span>
+  <a class="hide-sm" href="{wa()}" target="_blank" rel="noopener">WhatsApp {SITE["wa_pretty"]}</a>
+  <span class="top-sep hide-sm">·</span>
+  <span class="hide-sm">★ 5,0 · 120 reseñas en Google</span>
   <span class="demo-tag">Demo</span>
 </div></div>
 <header class="site-header"><div class="wrap header-inner">
@@ -269,8 +279,8 @@ def header(current):
   <nav class="main-nav" aria-label="Principal">{"".join(links)}</nav>
   <div class="header-cta"><a class="btn btn-primary" href="contacto.html#cita">Pedir cita</a><button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Abrir menú"><span></span><span></span><span></span></button></div>
 </div>
-<nav class="mobile-nav" id="mobileNav" aria-label="Menú móvil">{"".join(mob)}<a class="btn btn-wa" href="{wa("Hola, quería pedir cita en La Cara Norte.")}" target="_blank" rel="noopener">{ICON["wa"]} Escribir por WhatsApp</a></nav>
-</header>'''
+</header>
+<nav class="mobile-nav" id="mobileNav" aria-label="Menú móvil"><div class="mn-scroll">{"".join(mob)}{mob_foot}</div></nav>'''
 
 
 def footer():
@@ -326,7 +336,7 @@ def page(fname, title, desc, body, og_img="logo/logo-original", extra_head="", p
 <link rel="icon" type="image/png" href="assets/img/logo/favicon.png"><link rel="apple-touch-icon" href="assets/img/logo/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=3">
+<link rel="stylesheet" href="assets/css/styles.css?v=4">
 {jsonld()}
 {extra_head}
 </head>
@@ -338,7 +348,7 @@ def page(fname, title, desc, body, og_img="logo/logo-original", extra_head="", p
 {body}
 </main>
 {footer()}
-<script src="assets/js/main.js?v=3" defer></script>
+<script src="assets/js/main.js?v=4" defer></script>
 </body>
 </html>
 '''
