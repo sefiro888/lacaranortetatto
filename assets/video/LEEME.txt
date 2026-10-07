@@ -1,0 +1,2 @@
+reel-luis.mp4 y reel-luis-poster.jpg: reel de Luis (recorte de una grabación de pantalla del usuario, 07/10/2026). Pendiente: reel-guille.mp4 (+ reel-guille-poster.jpg). Al ejecutar python _build/build.py cada reel con MP4 se reproduce dentro del móvil; sin MP4, abre el modo cine con Instagram.
+Pendiente de permiso de Luis para usar el vídeo.

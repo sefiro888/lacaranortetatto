@@ -1,0 +1,9 @@
+# Material de trabajo (no se publica)
+IMAGENES_PARA_MEJORAR_HD/
+assets/img/ig-originales-640/
+Logotipo*.png
+.claude/
+_scratch/
+node_modules/
+__pycache__/
+*.log
