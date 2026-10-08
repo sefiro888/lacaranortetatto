@@ -4,19 +4,20 @@
    ========================================================= */
 :root{
   --black:#0e0e10;
-  --carbon:#1a1c1f;
-  --anthracite:#2a2d32;
-  --graphite:#383c42;
+  --carbon:#1b1c1e;
+  --anthracite:#2c2e30;
+  --graphite:#3a3d40;
   --steel:#8a9099;
   --line:rgba(255,255,255,.10);
   --line-dark:rgba(20,21,23,.12);
   --white:#f6f4f0;
   --pure:#ffffff;
   --copper:#bf7440;
-  --copper-light:#e29c68;
+  --copper-light:#e0a07c;   /* cobre rosado, como la corona de graffiti del estudio */
   --copper-deep:#8a4c25;
   --green:#9ccf86;          /* verde claro, "de planta": solo como toque */
   --green-deep:#4a8a3a;
+  --plant:#6fa04a;          /* verde de planta (bambú del estudio) */
   --ff-display:"Oswald","Arial Narrow",Impact,sans-serif;
   --ff-serif:"Cormorant Garamond",Georgia,serif;
   --ff-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -97,8 +98,8 @@ section{position:relative}
 .demo-tag{background:var(--copper);color:#140b04;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.66rem;padding:3px 8px;border-radius:2px}
 
 /* ---------- Header ---------- */
-.site-header{position:sticky;top:0;z-index:100;background:rgba(36,38,43,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:background .3s}
-.site-header.scrolled{background:rgba(36,38,43,.97)}
+.site-header{position:sticky;top:0;z-index:100;background:rgba(38,40,42,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:background .3s}
+.site-header.scrolled{background:rgba(38,40,42,.97)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:78px}
 .brand{display:flex;align-items:center;gap:14px}
 .brand img{width:54px;height:54px;border-radius:50%;background:#000;object-fit:cover}
@@ -191,7 +192,7 @@ section{position:relative}
 .frame-stack .b{position:absolute;right:-6%;bottom:0;width:46%;border:6px solid var(--black);border-radius:var(--radius);aspect-ratio:1;object-fit:cover}
 .on-light .frame-stack .b{border-color:var(--white)}
 .card{background:var(--carbon);border:1px solid var(--line);border-radius:var(--radius);padding:30px;transition:transform .35s var(--ease),border-color .35s,background .35s}
-.card:hover{transform:translateY(-6px);border-color:rgba(226,156,104,.5)}
+.card:hover{transform:translateY(-6px);border-color:rgba(224,160,124,.5)}
 .on-light .card{background:var(--pure);border-color:var(--line-dark)}
 .num{font:500 .9rem/1 var(--ff-display);letter-spacing:.2em;color:var(--copper-light)}
 .on-light .num{color:var(--copper-deep)}
@@ -216,7 +217,7 @@ section{position:relative}
 
 /* Equipo */
 .artist-card{position:relative;display:flex;flex-direction:column;background:var(--carbon);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:transform .4s var(--ease),border-color .4s}
-.artist-card:hover{transform:translateY(-8px);border-color:rgba(226,156,104,.55)}
+.artist-card:hover{transform:translateY(-8px);border-color:rgba(224,160,124,.55)}
 .artist-card .ph{aspect-ratio:4/5;overflow:hidden;position:relative}
 .artist-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
 .artist-card:hover .ph img{transform:scale(1.06)}
@@ -559,7 +560,7 @@ section{position:relative}
 /* ---------- Reels: marco de móvil, resplandor cobre, play con texto giratorio ---------- */
 .reel-sec{background:radial-gradient(ellipse at 50% 0%,#33373d,#1d1f23 55%,#111214);overflow:hidden;isolation:isolate}
 .reel-sec::before{content:"";position:absolute;left:50%;top:55%;width:min(900px,90vw);height:min(900px,90vw);transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(191,116,64,.28),transparent 62%);filter:blur(20px);z-index:-1;animation:glow 7s ease-in-out infinite}
-.reel-bg-text{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:500 clamp(9rem,28vw,26rem)/1 var(--ff-display);letter-spacing:.04em;color:transparent;-webkit-text-stroke:1px rgba(226,156,104,.16);white-space:nowrap;z-index:-1;pointer-events:none;user-select:none}
+.reel-bg-text{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:500 clamp(9rem,28vw,26rem)/1 var(--ff-display);letter-spacing:.04em;color:transparent;-webkit-text-stroke:1px rgba(224,160,124,.16);white-space:nowrap;z-index:-1;pointer-events:none;user-select:none}
 .reel-duo{display:flex;justify-content:center;align-items:flex-start;gap:clamp(30px,7vw,110px);flex-wrap:wrap;padding-top:20px}
 .reel-duo .reel:nth-child(2){margin-top:70px}
 .reel{margin:0;width:min(330px,100%);transition:transform .6s var(--ease)}
@@ -644,7 +645,7 @@ html{scroll-padding-top:100px}
 @media (max-width:1100px){
   .mobile-nav{position:fixed;left:0;right:0;bottom:0;top:var(--menu-top,70px);z-index:99;background:radial-gradient(ellipse at 80% 0%,#2f3338,#17181b 60%,#101113);opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .3s,transform .4s var(--ease),visibility 0s .4s;overflow:hidden}
   .mobile-nav.open{opacity:1;visibility:visible;transform:none;transition-delay:0s}
-  .mobile-nav::before{content:"";position:absolute;right:-70px;bottom:90px;width:320px;height:320px;background:url("assets/img/logo/logo-512.png") center/contain no-repeat;opacity:.07;pointer-events:none}
+  .mobile-nav::before{content:"";position:absolute;right:-70px;bottom:90px;width:320px;height:320px;background:url("../img/logo/logo-512.png") center/contain no-repeat;opacity:.07;pointer-events:none}
   .mn-scroll{position:relative;height:100%;overflow-y:auto;overscroll-behavior:contain;padding:8px 22px calc(34px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
   .mn-link,.mn-acc>summary{display:flex;align-items:center;justify-content:space-between;padding:17px 0;border-bottom:1px solid var(--line);font:500 1.55rem/1 var(--ff-display);letter-spacing:.07em;text-transform:uppercase;color:var(--white);list-style:none;cursor:pointer}
   .mn-acc>summary::-webkit-details-marker{display:none}
@@ -676,3 +677,19 @@ html{scroll-padding-top:100px}
   .nav-toggle{width:44px;height:44px;flex:none}
 }
 @media (max-width:360px){.brand-name{font-size:1.02rem}.brand-sub{letter-spacing:.22em}}
+
+/* ---------- Ajuste de color con el estudio real: verde de planta + paredes mate ---------- */
+.leaf-list li::before{background:var(--plant)}
+.on-light .leaf-list li::before{background:var(--green-deep)}
+.leaf-deco{color:var(--plant);opacity:.2}
+.on-light .leaf-deco{color:var(--green-deep);opacity:.15}
+.stamp{border-color:var(--plant);color:var(--plant)}
+.on-light .stamp{border-color:var(--green-deep);color:var(--green-deep)}
+.green-band{background:linear-gradient(135deg,#2d4a2c,#213824)}
+.green-band .eyebrow,.green-band .ico{color:var(--plant);border-color:var(--plant)}
+.theme-green .eyebrow{color:var(--plant)}
+.pill.green,.style-card .pill.green,.on-light .style-card .pill.green{color:var(--plant);border-color:rgba(111,160,74,.65)}
+.progress,.site-footer::before{background:linear-gradient(90deg,var(--copper),var(--copper-light) 55%,var(--plant))}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--plant);box-shadow:0 0 0 3px rgba(111,160,74,.18)}
+.sec-anth{background:radial-gradient(ellipse at 15% 0%,#373a3c,var(--anthracite) 60%)}
+.page-hero{background:radial-gradient(ellipse at 20% 30%,#35383a,#202224 55%,#141517)}

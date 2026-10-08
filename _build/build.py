@@ -336,7 +336,7 @@ def page(fname, title, desc, body, og_img="logo/logo-original", extra_head="", p
 <link rel="icon" type="image/png" href="assets/img/logo/favicon.png"><link rel="apple-touch-icon" href="assets/img/logo/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=4">
+<link rel="stylesheet" href="assets/css/styles.css?v=6">
 {jsonld()}
 {extra_head}
 </head>
@@ -749,7 +749,7 @@ def build_service(s):
 </section>
 <section class="sec sec-anth grain">
   <div class="wrap">
-    <div class="sec-head reveal"><p class="eyebrow">{s["options_title"]}</p><h2>{s["nav"]} <span class="serif" style="color:var(--green)">en detalle</span></h2></div>
+    <div class="sec-head reveal"><p class="eyebrow">{s["options_title"]}</p><h2>{s["nav"]} <span class="serif" style="color:var(--plant)">en detalle</span></h2></div>
     <div class="grid g4">{opts}</div>
   </div>
 </section>
@@ -1060,7 +1060,7 @@ def build_estudio():
 <section class="sec green-band has-leaves">
   {leaves("tr")}
   <div class="wrap">
-    <div class="sec-head reveal"><p class="eyebrow">Ambiente</p><h2>Un sitio <span class="serif" style="color:var(--green)">tranquilo</span> para tatuarte</h2><p class="lead">Fachada de ladrillo, paredes grises con láminas enmarcadas, un espejo blanco ornamentado y alguna planta verde. Un espacio cuidado y sin prisas, con gente que te explica cada paso.</p><span class="stamp">Amigable con el colectivo LGBTQ+</span></div>
+    <div class="sec-head reveal"><p class="eyebrow">Ambiente</p><h2>Un sitio <span class="serif" style="color:var(--plant)">tranquilo</span> para tatuarte</h2><p class="lead">Paredes gris carbón con láminas enmarcadas, un espejo blanco barroco con caligrafía, una corona de graffiti, un marco dorado, un sofá chéster y un bambú. Un espacio cuidado y sin prisas, con gente que te explica cada paso.</p><span class="stamp">Amigable con el colectivo LGBTQ+</span></div>
   </div>
 </section>
 <section class="sec on-light">
