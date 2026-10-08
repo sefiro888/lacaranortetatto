@@ -27,8 +27,20 @@ def fern():
     return ('<svg class="leaf-deco %s" viewBox="0 -20 260 420" aria-hidden="true" fill="currentColor"><path d="M20 380Q40 150 190 10" fill="none" stroke="currentColor" stroke-width="3"/>' + "".join(leaves) + '</svg>')
 
 
+_deco_sizes = {}
+
+
+def deco(name, cls=""):
+    """Ilustración decorativa (PNG/WebP con transparencia). Siempre aria-hidden y diferida."""
+    if name not in _deco_sizes:
+        with Image.open(os.path.join(ROOT, "assets/img/deco", name + ".webp")) as im:
+            _deco_sizes[name] = im.size
+    w, h = _deco_sizes[name]
+    return f'<img class="deco {cls}" src="assets/img/deco/{name}.webp" alt="" aria-hidden="true" width="{w}" height="{h}" loading="lazy" decoding="async">'
+
+
 def leaves(pos="tr"):
-    return fern() % pos
+    return deco("fern", f"leaf-deco {pos}")
 
 
 SITE_URL = "https://sefiro888.github.io/lacaranortetatto/"
@@ -135,6 +147,7 @@ def reel_section(owner, limit=None):
     if many:
         return f'''
 <section class="sec reel-sec grain has-leaves">
+  {deco("splash", "deco-splash")}
   <span class="reel-bg-text" aria-hidden="true">REEL</span>
   <div class="wrap">
     <div class="sec-head center reveal">{head}</div>
@@ -143,6 +156,7 @@ def reel_section(owner, limit=None):
 </section>'''
     return f'''
 <section class="sec reel-sec grain has-leaves">
+  {deco("splash", "deco-splash")}
   <span class="reel-bg-text" aria-hidden="true">REEL</span>
   <div class="wrap split">
     <div class="reveal">{head}</div>
@@ -336,7 +350,7 @@ def page(fname, title, desc, body, og_img="logo/logo-original", extra_head="", p
 <link rel="icon" type="image/png" href="assets/img/logo/favicon.png"><link rel="apple-touch-icon" href="assets/img/logo/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=6">
+<link rel="stylesheet" href="assets/css/styles.css?v=8">
 {jsonld()}
 {extra_head}
 </head>
@@ -542,7 +556,8 @@ def build_index():
   <div class="wrap"><p style="margin-top:20px"><a class="btn btn-primary" href="galeria.html">Ver la galería completa</a></p></div>
 </section>"""
     reels = f"""
-<section class="sec reel-sec grain">
+<section class="sec reel-sec grain has-leaves">
+  {deco("splash", "deco-splash")}
   <span class="reel-bg-text" aria-hidden="true">REELS</span>
   <div class="wrap">
     <div class="sec-head center reveal"><p class="eyebrow">En movimiento</p><h2 class="split-words">Piezas reales, <span class="serif accent">en vídeo</span></h2><p class="lead">Reels de nuestros artistas. Pulsa play y míralos sin salir de la web.</p></div>
@@ -574,8 +589,9 @@ def build_index():
     <div class="testi reveal" data-testi><div class="testi-track">{slides}</div><div class="testi-dots">{dots}</div></div>
   </div>
 </section>"""
-    steps = """
-<section class="sec sec-carbon grain">
+    steps = f"""
+<section class="sec sec-carbon grain has-leaves pad-deco">
+  {deco("machine", "deco-machine")}
   <div class="wrap">
     <div class="sec-head reveal"><p class="eyebrow">Cómo trabajamos</p><h2 class="split-words">Del primer mensaje a <span class="serif accent">tu tatuaje</span></h2></div>
     <div class="steps">
@@ -656,7 +672,8 @@ def build_tatuajes():
   </div>
 </section>'''
     faq = f'''
-<section class="sec on-light">
+<section class="sec on-light has-leaves">
+  {deco("inks", "deco-inks")}
   <div class="wrap" style="max-width:900px">
     <div class="sec-head reveal"><p class="eyebrow">Antes de decidir</p><h2>Preguntas sobre tatuajes</h2></div>
     <div class="faq reveal">
@@ -1099,8 +1116,9 @@ def build_estudio():
 
 def build_primera_vez():
     hero = page_hero("Tu primera vez", "Tu primera vez, <span class='serif accent'>sin nervios</span>", "Todo lo que conviene saber antes, durante y después de tu cita. Pensado para que llegues tranquilo y te lleves a casa un tatuaje que cuidar con cariño.", "maria-02")
-    steps = '''
-<section class="sec sec-dark grain">
+    steps = f'''
+<section class="sec sec-dark grain has-leaves pad-deco">
+  {deco("hand", "deco-hand")}
   <div class="wrap">
     <div class="sec-head reveal"><p class="eyebrow">Paso a paso</p><h2>Cómo es el proceso</h2></div>
     <div class="steps">
@@ -1163,7 +1181,8 @@ def build_primera_vez():
 def build_contacto():
     hero = page_hero("Contacto", "Hablemos de <span class='serif accent'>tu idea</span>", "La forma más rápida de pedir cita es WhatsApp. También puedes rellenar este formulario y te abrimos el chat con todo ya escrito.", "luis-09")
     form = f'''
-<section class="sec sec-dark grain" id="cita">
+<section class="sec sec-dark grain has-leaves pad-deco" id="cita">
+  {deco("flash", "deco-flash")}
   <div class="wrap split" style="align-items:start">
     <div class="reveal">
       <p class="eyebrow">Solicitud de cita</p><h2>Cuéntanos <span class="serif accent">qué quieres</span></h2>
@@ -1254,8 +1273,8 @@ def build_legal():
 
 def build_404():
     body = f'''
-<section class="sec sec-dark grain" style="text-align:center;min-height:60vh;display:grid;place-items:center">
-<div class="wrap"><img src="assets/img/logo/logo-transparent.png" alt="" width="180" height="180" style="margin:0 auto 20px;width:180px">
+<section class="sec sec-dark grain has-leaves" style="text-align:center;min-height:60vh;display:grid;place-items:center">
+<div class="wrap">{deco("flash", "deco-flash-404")}<img src="assets/img/logo/logo-transparent.png" alt="" width="180" height="180" style="margin:0 auto 20px;width:180px">
 <p class="eyebrow">Error 404</p><h1 style="font-size:clamp(2.4rem,6vw,4.5rem)">Esta página <span class="serif accent">no existe</span></h1>
 <p class="lead" style="margin:0 auto 30px">Quizá el enlace ha cambiado. Vuelve al inicio o escríbenos y te ayudamos.</p>
 <div class="btn-row" style="justify-content:center"><a class="btn btn-primary" href="index.html">Volver al inicio</a><a class="btn btn-ghost" href="contacto.html">Contacto</a></div></div></section>'''

@@ -693,3 +693,29 @@ html{scroll-padding-top:100px}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--plant);box-shadow:0 0 0 3px rgba(111,160,74,.18)}
 .sec-anth{background:radial-gradient(ellipse at 15% 0%,#373a3c,var(--anthracite) 60%)}
 .page-hero{background:radial-gradient(ellipse at 20% 30%,#35383a,#202224 55%,#141517)}
+
+/* ---------- Ilustraciones decorativas (cobre grabado): una por sección, al borde, nunca sobre el contenido ---------- */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0;max-width:none;height:auto}
+.has-leaves>.wrap,.has-leaves>.sec-head,.has-leaves>.reel-bg-text{position:relative;z-index:1}
+.leaf-deco{width:min(290px,28vw);opacity:.6;color:inherit;filter:saturate(.9)}
+.sec-dark .leaf-deco,.sec-anth .leaf-deco,.sec-carbon .leaf-deco,.green-band .leaf-deco{opacity:.3}
+.leaf-deco.tr{top:-34px;right:-50px;transform:rotate(14deg)}
+.leaf-deco.bl{bottom:-34px;left:-60px;transform:scaleX(-1) rotate(8deg)}
+.leaf-deco.br{bottom:-40px;right:-50px;transform:rotate(-6deg)}
+.deco-splash{width:min(560px,60vw);right:-90px;top:-60px;opacity:.14;mix-blend-mode:screen;transform:rotate(18deg)}
+.reel-sec .deco-splash{z-index:0}
+.deco-machine{width:clamp(180px,20vw,300px);right:max(24px,calc(50vw - 640px));bottom:36px;opacity:.95;transform:rotate(-8deg);filter:drop-shadow(0 24px 30px rgba(0,0,0,.5))}
+.deco-hand{width:clamp(220px,28vw,420px);right:max(0px,calc(50vw - 700px));bottom:-20px;opacity:.95;filter:drop-shadow(0 20px 30px rgba(0,0,0,.45))}
+.deco-inks{width:clamp(150px,17vw,250px);right:max(20px,calc(50vw - 690px));top:38px;opacity:.95;transform:rotate(6deg)}
+.deco-flash{width:clamp(170px,17vw,250px);left:max(16px,calc(50vw - 680px));bottom:34px;opacity:.95;transform:rotate(-9deg);filter:drop-shadow(0 18px 24px rgba(0,0,0,.45))}
+.deco-flash-404{position:relative;display:block;width:140px;margin:0 auto 10px;transform:rotate(-8deg);opacity:.95}
+@media (max-width:1100px){.deco-machine,.deco-hand,.deco-inks,.deco-flash{display:none}}
+@media (max-width:640px){.leaf-deco{width:150px;opacity:.5}.sec-dark .leaf-deco,.sec-anth .leaf-deco,.sec-carbon .leaf-deco{opacity:.25}.deco-splash{width:320px;right:-110px}}
+@media (prefers-reduced-motion:reduce){.deco{transform:none}}
+
+/* Espacio propio para la ilustración: nunca pisa texto */
+.pad-deco{padding-bottom:clamp(250px,26vw,370px)}
+.deco-machine{bottom:-6px;width:clamp(170px,16vw,240px);right:max(40px,calc(50vw - 600px))}
+.deco-hand{bottom:-14px;width:clamp(240px,24vw,360px);right:max(30px,calc(50vw - 640px))}
+.deco-flash{bottom:-8px;left:max(30px,calc(50vw - 640px));width:clamp(170px,15vw,230px)}
+@media (max-width:1100px){.pad-deco{padding-bottom:clamp(70px,10vw,130px)}}
